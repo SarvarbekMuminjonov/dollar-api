@@ -145,11 +145,11 @@ function getGovKurs() {
           )
           // match float numbers
           let pattern = /[0-9]*[.]?[0-9]+/
-          let dollar = parseFloat(list.eq(0).text().match(pattern)[0])
-          let euro = parseFloat(list.eq(1).text().match(pattern)[0])
-          let rubl = parseFloat(list.eq(2).text().match(pattern)[0])
+          let USD = parseFloat(list.eq(0).text().match(pattern)[0])
+          let EURO = parseFloat(list.eq(1).text().match(pattern)[0])
+          let RUBL = parseFloat(list.eq(2).text().match(pattern)[0])
           // console.log({ usd, euro, rubl })
-          resolve({ dollar, euro, rubl })
+          resolve({USD,EURO,RUBL })
         } catch (error) {
           console.log("Error getGovKurs t/c " + error)
           reject(undefined)
@@ -183,16 +183,16 @@ export function schedule() {
 }
 
 export async function getAllKurs() {
-  let { dollar, euro, rubl } = await getGovKurs()
+  let { USD, EURO, RUBL } = await getGovKurs()
   let { bazar } = await getUSDBazarAndInBanks()
   let bazarUSD = bazar.usd.data[0]
   let bazarRUB = await getRubBazar()
   let data = {
     bazarUSD,
     bazarRUB,
-    dollar,
-    rubl,
-    euro,
+    USD,
+    RUBL,
+    EURO,
   }
   return data
 }
